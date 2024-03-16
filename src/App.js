@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import './index.css';
+import LoginForm from './components/LoginForm';
+import ResetPasswordForm from './components/ResetPasswordForm'
+import SetPassword from './components/SetPassword';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('login');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {currentPage === 'login' && <LoginForm showResetPasswordForm={() => setCurrentPage('resetPassword')} />}
+      {currentPage === 'resetPassword' && (
+        <ResetPasswordForm 
+          returnLoginForm={() => setCurrentPage('login')} 
+          showSetPassword={() => setCurrentPage('setPassword')} 
+        />
+      )}
+      {currentPage === 'setPassword' && <SetPassword/>}
+    </>   
   );
 }
 
